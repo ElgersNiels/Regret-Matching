@@ -1,5 +1,8 @@
 import java.util.Arrays;
 
+import game.Game;
+import parser.GameParser;
+import regret.RegretMatching;
 import regret.TwoPlayerRegretMatching;
 
 public class Main {
@@ -10,19 +13,28 @@ public class Main {
 				new double[][]{{1,3,-1},{2,-2,3}}, 
 				new double[][]{{-1,-3,1},{-2,2,-3}});
 		
-		r.train((int) 10e2);
+		r.train((int) 1e7);
 		
 		for (double[] s : r.getTrainedStrategy())
 			System.out.println(Arrays.toString(s));
+//		
+//		System.out.println("RPS (zero-sum)");
+//		r = new TwoPlayerRegretMatching(
+//				new double[][]{{0,-1,1},{1,0,-1},{-1,1,0}}, 
+//				new double[][]{{0,1,-1},{-1,0,1},{1,-1,0}});
+//		
+//		r.train((int) 10e2);
+//		
+//		for (double[] s : r.getTrainedStrategy())
+//			System.out.println(Arrays.toString(s));
 		
-		System.out.println("RPS (zero-sum)");
-		r = new TwoPlayerRegretMatching(
-				new double[][]{{0,-1,1},{1,0,-1},{-1,1,0}}, 
-				new double[][]{{0,1,-1},{-1,0,1},{1,-1,0}});
+		GameParser gp = new GameParser();
+		Game game = gp.parse("C:/Users/elger/Desktop/game.txt");
 		
-		r.train((int) 10e2);
+		RegretMatching t = new RegretMatching(game);
+		t.train((int) 1e7);
 		
-		for (double[] s : r.getTrainedStrategy())
+		for (double[] s : t.getTrainedStrategy())
 			System.out.println(Arrays.toString(s));
 	}
 

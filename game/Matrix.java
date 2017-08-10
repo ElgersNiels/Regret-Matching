@@ -125,4 +125,8 @@ public class Matrix<T> implements Iterable<T> {
 						);
 		return true;
 	}
+	
+	public String toString() {
+		return Arrays.toString(this.values);
+	}
 }

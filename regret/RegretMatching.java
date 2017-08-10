@@ -19,7 +19,7 @@ public class RegretMatching {
 	
 	public RegretMatching(Game game) {
 		this.game = game;
-		
+
 		this.regretSums = new double[game.getNbOfPlayers()][];
 		this.strategies = new double[game.getNbOfPlayers()][];
 		this.strategySums = new double[game.getNbOfPlayers()][];
