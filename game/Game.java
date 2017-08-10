@@ -13,6 +13,21 @@ public class Game {
 		this.payoffs = payoffs;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public Game(int players, int[] nbOfActions) {
+		if (players != nbOfActions.length)
+			throw new IllegalArgumentException("Tried to initialize a game with " + players + " players but gave " + nbOfActions.length + " amounts of actions. Must be equal.");
+		
+		this.payoffs = new Matrix[players];
+		
+		for (int p = 0; p < players; p++)
+			this.payoffs[p] = new Matrix<Double>(nbOfActions);
+	}
+	
+	public void putPayoff(int player, int[] actions, double value) {
+		this.payoffs[player].put(actions, value);
+	}
+	
 	public int getNbOfPlayers() {
 		return this.payoffs.length;
 	}
@@ -45,5 +60,12 @@ public class Game {
 		return IntStream.range(0, getNbOfPlayers()) //.parallel() ??
 			.mapToDouble(p -> getPayoff(p, strategies))
 			.toArray();
+	}
+	
+	public String toString() {
+		String toString = "";
+		for (Matrix<Double> m : this.payoffs)
+			toString += m.toString() + "\n";
+		return toString;
 	}
 }
