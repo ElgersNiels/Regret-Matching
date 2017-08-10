@@ -1,6 +1,7 @@
 package game;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.stream.IntStream;
 
 public class Matrix<T> implements Iterable<T> {
 
@@ -96,6 +97,20 @@ public class Matrix<T> implements Iterable<T> {
 		this.offset = 1;
 	}
 
+	/**
+	 * Return the negation of this matrix (i.e. all values negated) as a new matrix.
+	 * @return The negation of this matrix as a new matrix.
+	 */
+	public Matrix<Double> negation() {
+		Matrix<Double> m = new Matrix<Double>(isZeroIndexed(), lengths);
+		
+		m.values = IntStream.range(0, this.values.length)
+			.mapToObj(v -> - (Double) values[v])
+			.toArray();
+		
+		return m;
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public Iterator<T> iterator() {
